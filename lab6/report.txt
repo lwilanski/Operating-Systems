@@ -1,0 +1,16 @@
+Szerokość: 0.000010000000, Procesy: 50, Całka: 3.141592653598, Czas: 0.005195 sekund
+Szerokość: 0.000001000000, Procesy: 500, Całka: 3.141592653590, Czas: 0.029125 sekund
+Szerokość: 0.000001000000, Procesy: 1000, Całka: 3.141592653590, Czas: 0.066809 sekund
+Szerokość: 0.000000100000, Procesy: 500, Całka: 3.141592653590, Czas: 0.028351 sekund
+Szerokość: 0.000000010000, Procesy: 500, Całka: 3.141592653590, Czas: 0.041538 sekund
+Szerokość: 0.000000001000, Procesy: 500, Całka: 3.141592653590, Czas: 0.317976 sekund
+Szerokość: 0.000000000100, Procesy: 500, Całka: 3.141592653590, Czas: 3.179908 sekund
+Szerokość: 0.000000000010, Procesy: 500, Całka: 3.141592653590, Czas: 33.488053 sekund
+Szerokość: 0.000000000010, Procesy: 10, Całka: 0.000000000000, Czas: 0.001838 sekund
+Szerokość: 0.000000000010, Procesy: 50, Całka: 3.141592653589, Czas: 33.839286 sekund
+Szerokość: 0.000100000000, Procesy: 1, Całka: 3.141592654423, Czas: 0.000892 sekund
+Szerokość: 0.000000010000, Procesy: 1, Całka: 3.141592653590, Czas: 0.174955 sekund
+Szerokość: 0.000000000010, Procesy: 1, Całka: 0.000000000000, Czas: 0.000448 sekund
+Szerokość: 0.000000000100, Procesy: 1, Całka: 0.000000000000, Czas: 0.000381 sekund
+Szerokość: 0.000000001000, Procesy: 1, Całka: 3.141592653590, Czas: 1.717603 sekund
+Szerokość: 0.000000001000, Procesy: 5, Całka: 3.141592653590, Czas: 0.635160 sekund

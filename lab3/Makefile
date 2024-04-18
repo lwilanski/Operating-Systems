@@ -1,0 +1,23 @@
+CC=gcc
+CFLAGS=-Wall -g
+
+SRC_DIR=src
+
+EXECUTABLE1=reverse
+EXECUTABLE2=list_files
+EXECUTABLE3=list_files_1024
+
+all: $(EXECUTABLE1) $(EXECUTABLE2) $(EXECUTABLE3)
+
+$(EXECUTABLE1): $(SRC_DIR)/ex1.c
+	$(CC) $(CFLAGS) -o $(EXECUTABLE1) $<
+
+$(EXECUTABLE2): $(SRC_DIR)/ex2.c
+	$(CC) $(CFLAGS) -o $(EXECUTABLE2) $<
+
+$(EXECUTABLE3): $(SRC_DIR)/ex11.c
+	$(CC) $(CFLAGS) -o $(EXECUTABLE3) $<
+
+clean:
+	rm -f $(EXECUTABLE1) $(EXECUTABLE2) $(EXECUTABLE3)
+

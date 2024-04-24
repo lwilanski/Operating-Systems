@@ -36,15 +36,17 @@ void reverse_file(const char *input_path, const char *output_path) {
             exit(EXIT_FAILURE);
         }
 
-        for (ssize_t j = bytes_read - 1; j >= 0; j--) {
-            if (write(output_fd, &buffer[j], 1) != 1) {
-                perror("Error writing file");
-                close(input_fd);
-                close(output_fd);
-                exit(EXIT_FAILURE);
-            }
+        char reversed_buffer[BLOCK_SIZE];
+        for (ssize_t j = 0; j < bytes_read; j++) {
+            reversed_buffer[j] = buffer[bytes_read - 1 - j];
         }
-        
+        if (write(output_fd, reversed_buffer, bytes_read) != bytes_read) {
+            perror("Error writing file");
+            close(input_fd);
+            close(output_fd);
+            exit(EXIT_FAILURE);
+        }
+
         to_read = BLOCK_SIZE;
     }
 

@@ -15,3 +15,14 @@ ex1: $(SRC_DIR)/ex1.c
 
 clean:
 	rm -f catcher sender ex1
+
+test:
+	@echo "Test: Cwiczenie 1 - reakcja SIGUSR1 w zaleznosci od roznych dyspozycji"
+	@echo "Test: none"
+	-./ex1 none
+	@echo "Test: ignore"
+	-./ex1 ignore
+	@echo "Test: handler"
+	-./ex1 handler
+	@echo "Test: mask"
+	-./ex1 mask

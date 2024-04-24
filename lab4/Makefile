@@ -19,3 +19,10 @@ $(EXE2): $(SRC_FILES2)
 
 clean:
 	rm -f $(EXE1) $(EXE2)
+
+test:
+	@echo "Test: Stworzenie 10 procesow potomnych, które wypisuja swoje informacje na konsole"
+	./$(EXE1) 10
+	@echo "Test: Cwiczenie 2 wywolane na biezacym katalogu"
+	./$(EXE2) .
+

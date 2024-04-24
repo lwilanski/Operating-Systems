@@ -14,3 +14,5 @@ Szerokość: 0.000000000010, Procesy: 1, Całka: 0.000000000000, Czas: 0.000448 
 Szerokość: 0.000000000100, Procesy: 1, Całka: 0.000000000000, Czas: 0.000381 sekund
 Szerokość: 0.000000001000, Procesy: 1, Całka: 3.141592653590, Czas: 1.717603 sekund
 Szerokość: 0.000000001000, Procesy: 5, Całka: 3.141592653590, Czas: 0.635160 sekund
+Szerokość: 0.000000001000, Procesy: 1, Całka: 3.141592653590, Czas: 1.981688 sekund
+Szerokość: 0.000000001000, Procesy: 5, Całka: 3.141592653590, Czas: 0.648395 sekund

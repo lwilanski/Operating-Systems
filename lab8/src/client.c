@@ -19,6 +19,22 @@ struct print_job {
     int client_id;
 };
 
+void P(int sem_id) {
+    struct sembuf operations[1] = {{0, -1, 0}};
+    if (semop(sem_id, operations, 1) < 0) {
+        perror("semop P");
+        exit(1);
+    }
+}
+
+void V(int sem_id) {
+    struct sembuf operations[1] = {{0, 1, 0}};
+    if (semop(sem_id, operations, 1) < 0) {
+        perror("semop V");
+        exit(1);
+    }
+}
+
 int main() {
 
     int client_id = getpid();
@@ -44,30 +60,33 @@ int main() {
 
     srand(time(NULL));
     while (1) {
-    	struct print_job new_job;
-    	for (int i = 0; i < MAX_TEXT_SIZE; i++) {
-        	new_job.text[i] = 'a' + rand() % 26;
-    	}
-    	new_job.client_id = client_id;
-    	new_job.in_use = 1;
+        struct print_job new_job;
+        for (int i = 0; i < MAX_TEXT_SIZE; i++) {
+            new_job.text[i] = 'a' + rand() % 26;
+        }
+        new_job.client_id = client_id;
+        new_job.in_use = 1;
 
-    	int job_assigned = 0;
-    	for (int i = 0; i < MAX_PRINTERS; i++) {
-        	if (!jobs[i].in_use) {
-            		memcpy(&jobs[i], &new_job, sizeof(struct print_job));
-            		printf("Client %d sent print job: '%s'\n", client_id, new_job.text);
-            		job_assigned = 1;
-            		break;
-        	}
-    	}
+        P(sem_id);
 
-    	if (!job_assigned) {
-        	printf("Client %d: No available printers. Retrying...\n", client_id);
-    	}
+        int job_assigned = 0;
+        for (int i = 0; i < MAX_PRINTERS; i++) {
+            if (!jobs[i].in_use) {
+                memcpy(&jobs[i], &new_job, sizeof(struct print_job));
+                printf("Client %d sent print job: '%s'\n", client_id, new_job.text);
+                job_assigned = 1;
+                break;
+            }
+        }
 
-    	sleep(rand() % 10 + 1);
-	}
+        V(sem_id);
+
+        if (!job_assigned) {
+            printf("Client %d: No available printers. Retrying...\n", client_id);
+        }
+
+        sleep(rand() % 10 + 1);
+    }
 
     return 0;
 }
-	

@@ -4,6 +4,7 @@
 #include <sys/shm.h>
 #include <sys/sem.h>
 #include <unistd.h>
+#include <sys/wait.h>
 
 #define MAX_PRINTERS 3
 #define PRINT_JOB_SIZE 10
@@ -45,6 +46,22 @@ void V(int sem_id) {
     }
 }
 
+void printer_process(struct print_job *jobs, int sem_id, int printer_id) {
+    while (1) {
+        P(sem_id);
+        if (jobs[printer_id].in_use) {
+            for (int j = 0; j < PRINT_JOB_SIZE; j++) {
+                printf("%c", jobs[printer_id].text[j]);
+                fflush(stdout);
+                sleep(1);
+            }
+            printf("\n");
+            jobs[printer_id].in_use = 0;
+        }
+        V(sem_id);
+    }
+}
+
 int main() {
     int shm_id = shmget(SHM_KEY, sizeof(struct print_job) * MAX_PRINTERS, IPC_CREAT | 0666);
     if (shm_id < 0) {
@@ -68,25 +85,22 @@ int main() {
         exit(1);
     }
 
-    init_sem(sem_id, MAX_PRINTERS);
+    init_sem(sem_id, 1);
 
-    while (1) {
-        for (int i = 0; i < MAX_PRINTERS; i++) {
-            if (jobs[i].in_use) {
-                P(sem_id);
-                printf("Client %d Printing: ", jobs[i].client_id);
-                for (int j = 0; j < PRINT_JOB_SIZE; j++) {
-                    printf("%c", jobs[i].text[j]);
-                    fflush(stdout);
-                    sleep(1);
-                }
-                printf("\n");
-                jobs[i].in_use = 0;
-                V(sem_id);
-            }
+    for (int i = 0; i < MAX_PRINTERS; i++) {
+        pid_t pid = fork();
+        if (pid < 0) {
+            perror("fork");
+            exit(1);
+        } else if (pid == 0) {
+            printer_process(jobs, sem_id, i);
+            exit(0);
         }
+    }
+
+    for (int i = 0; i < MAX_PRINTERS; i++) {
+        wait(NULL);
     }
 
     return 0;
 }
-

@@ -105,7 +105,7 @@ void update_grid(char *src, char *dst, int n_threads)
     struct thread_data thread_args[n_threads];
 
     int rows_per_thread = grid_height / n_threads;
-    int remaining_rows = grid_height % n_threads; // Pozostałe wiersze
+    int remaining_rows = grid_height % n_threads;
 
     for (int i = 0; i < n_threads; ++i)
     {
@@ -116,7 +116,7 @@ void update_grid(char *src, char *dst, int n_threads)
 
         if (i == n_threads - 1)
         {
-            thread_args[i].end_row += remaining_rows; // Ostatni wątek obsługuje pozostałe wiersze
+            thread_args[i].end_row += remaining_rows;
         }
 
         pthread_create(&threads[i], NULL, thread_update, (void *)&thread_args[i]);
